@@ -1,23 +1,38 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, View, FlatList, Button } from 'react-native';
+import PostPreview from '../components/PostPreview/PostPreview';
+import { DATA } from '../data'; // FIXME: test data
 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  },
+
+  container: {
+    marginTop: 10,
+    paddingBottom: 50,
   },
 });
 
 const MainScreen = ({ navigation }) => {
+  const keyExtractor = post => post.id.toString();
+  const renderItem = ({ item }) => <PostPreview navigation={navigation} post={item} />;
+
   return (
     <View style={styles.wrapper}>
-      <Text>Main Screen</Text>
+      <FlatList
+        data={DATA}
+        keyExtractor={keyExtractor}
+        renderItem={renderItem}
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
+        windowSize={3}
+      />
 
-      <Button title="to About" onPress={() => navigation.navigate('About')} />
+      {/* <Button title="to About" onPress={() => navigation.navigate('About')} />
       <Button title="to Bookmarked" onPress={() => navigation.navigate('Bookmarked')} />
       <Button title="to Create" onPress={() => navigation.navigate('Create')} />
-      <Button title="to Post" onPress={() => navigation.navigate('Post')} />
+      <Button title="to Post" onPress={() => navigation.navigate('Post', { title: 'Post #33' })} /> */}
     </View>
   )
 };
