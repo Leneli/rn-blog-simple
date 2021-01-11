@@ -1,20 +1,17 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import PropTypes from 'prop-types';
+import { PostsList } from '../components/PostsList';
+import { DATA } from '../data'; // FIXME: test data
 
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
-
-const BookmarkedScreen = ({}) => {
-  return (
-    <View style={styles.wrapper}>
-      <Text>Bookmarked Screen</Text>
-    </View>
-  )
+const propTypes = {
+  navigation: PropTypes.object.isRequired,
 };
+
+const BookmarkedScreen = ({ navigation }) => {
+  const bookedPosts = DATA.filter(post => post.booked);
+  return <PostsList navigation={navigation} data={bookedPosts} />;
+};
+
+BookmarkedScreen.propTypes = propTypes;
 
 export default BookmarkedScreen;

@@ -1,17 +1,20 @@
 import 'react-native-gesture-handler';
 import React from 'react';
+import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { IconNavPhoto, IconNav } from '../components/NavigateComponents';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { IconNav, IconTab } from '../components/NavigateComponents';
 import MainScreen from '../screens/MainScreen';
 import AboutScreen from '../screens/AboutScreen';
 import BookmarkedScreen from '../screens/BookmarkedScreen';
 import CreateScreen from '../screens/CreateScreen';
 import PostScreen from '../screens/PostScreen';
 import { CLR_FONT, CLR_MAIN, CLR_WHITE } from '../constants/colors';
-import { Platform } from 'react-native';
 
 const Stack = createStackNavigator();
+const Tabs = Platform.OS === 'ios' ? createBottomTabNavigator() : createMaterialBottomTabNavigator();
 
 const screenOptions = {
   headerStyle: {
@@ -39,6 +42,11 @@ const mainOptions = {
   headerRight: () => <IconNav iconName="ios-camera" position="right" onPress={() => {}} />,
 };
 
+const bookedOprions = {
+  title: 'Закладки',
+  headerLeft: () => <IconNav iconName="ios-menu" position="left" onPress={() => {}} />,
+};
+
 const postOptions = ({ route }) => ({
   title: route?.params?.title || 'Заметка',
   headerBackTitleVisible: false,
@@ -51,16 +59,53 @@ const postOptions = ({ route }) => ({
   ),
 });
 
+const CommonStack = () => (
+  <>
+    <Stack.Screen name="Post" component={PostScreen} options={postOptions} />
+  </>
+);
+
+const MainStack = () => (
+  <Stack.Navigator initialRouteName="Main" headerMode="screen" screenOptions={screenOptions}>
+    <Stack.Screen name="Main" component={MainScreen} options={mainOptions} />
+    <Stack.Screen name="About" component={AboutScreen} />
+    <Stack.Screen name="Create" component={CreateScreen} options={{ title: 'Новая заметка' }} />
+    {CommonStack()}
+  </Stack.Navigator>
+);
+
+const BookedStack = () => (
+  <Stack.Navigator initialRouteName="Bookmarked" headerMode="screen" screenOptions={screenOptions}>
+    <Stack.Screen name="Bookmarked" component={BookmarkedScreen} options={bookedOprions} />
+    {CommonStack()}
+  </Stack.Navigator>
+);
+
+const AppTabs = () => (
+  <Tabs.Navigator
+    shifting={true}
+    tabBarOptions={{
+      activeTintColor: 'orange',
+      inactiveTintColor: 'blue',
+      labelStyle: { fontSize: 13 },
+    }}
+    barStyle={{ backgroundColor: 'orange' }}
+  >
+    <Tabs.Screen name="Main" component={MainStack} options={{
+      title: 'Заметки',
+      tabBarIcon: info => <IconTab iconName="star" color={info?.color} />,
+    }} />
+    <Tabs.Screen name="Bookmarked" component={BookedStack} options={{
+      title: 'Закладки',
+      tabBarIcon: info => <IconTab iconName="star" color={info?.color} />,
+    }} />
+  </Tabs.Navigator>
+);
+
 const AppRouter = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Main" headerMode="screen" screenOptions={screenOptions}>
-        <Stack.Screen name="Main" component={MainScreen} options={mainOptions} />
-        <Stack.Screen name="About" component={AboutScreen} />
-        <Stack.Screen name="Bookmarked" component={BookmarkedScreen} options={{ title: 'Закладки' }} />
-        <Stack.Screen name="Create" component={CreateScreen} options={{ title: 'Новая заметка' }} />
-        <Stack.Screen name="Post" component={PostScreen} options={postOptions} />
-      </Stack.Navigator>
+      <AppTabs />
     </NavigationContainer>
   );
 };
