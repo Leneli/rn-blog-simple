@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, FlatList, Button } from 'react-native';
+import PropTypes from 'prop-types';
 import PostPreview from '../components/PostPreview/PostPreview';
 import { DATA } from '../data'; // FIXME: test data
 
@@ -13,6 +14,10 @@ const styles = StyleSheet.create({
     paddingBottom: 50,
   },
 });
+
+const propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 const MainScreen = ({ navigation }) => {
   const keyExtractor = post => post.id.toString();
@@ -36,5 +41,7 @@ const MainScreen = ({ navigation }) => {
     </View>
   )
 };
+
+MainScreen.propTypes = propTypes;
 
 export default MainScreen;
