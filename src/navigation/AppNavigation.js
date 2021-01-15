@@ -4,6 +4,7 @@ import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { IconNav, IconTab } from '../components/NavigateComponents';
 import MainScreen from '../screens/MainScreen';
@@ -14,6 +15,7 @@ import PostScreen from '../screens/PostScreen';
 import { CLR_FONT, CLR_MAIN, CLR_WHITE } from '../constants/colors';
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 const Tabs = Platform.OS === 'ios' ? createBottomTabNavigator() : createMaterialBottomTabNavigator();
 
 const screenOptions = {
@@ -66,7 +68,7 @@ const CommonStack = () => (
 );
 
 const MainStack = () => (
-  <Stack.Navigator initialRouteName="Main" headerMode="screen" screenOptions={screenOptions}>
+  <Stack.Navigator headerMode="screen" screenOptions={screenOptions}>
     <Stack.Screen name="Main" component={MainScreen} options={mainOptions} />
     <Stack.Screen name="About" component={AboutScreen} />
     <Stack.Screen name="Create" component={CreateScreen} options={{ title: 'Новая заметка' }} />
@@ -75,7 +77,7 @@ const MainStack = () => (
 );
 
 const BookedStack = () => (
-  <Stack.Navigator initialRouteName="Bookmarked" headerMode="screen" screenOptions={screenOptions}>
+  <Stack.Navigator headerMode="screen" screenOptions={screenOptions}>
     <Stack.Screen name="Bookmarked" component={BookmarkedScreen} options={bookedOprions} />
     {CommonStack()}
   </Stack.Navigator>
@@ -102,10 +104,19 @@ const AppTabs = () => (
   </Tabs.Navigator>
 );
 
+const DrawerNavigator = () => (
+  <Drawer.Navigator>
+    <Drawer.Screen name="Main" component={MainStack} />
+    {/* <Drawer.Screen name="Tabs" component={AppTabs} /> */}
+    {/* <AppTabs /> */}
+  </Drawer.Navigator>
+);
+
 const AppRouter = () => {
   return (
     <NavigationContainer>
-      <AppTabs />
+      <DrawerNavigator />
+      
     </NavigationContainer>
   );
 };
