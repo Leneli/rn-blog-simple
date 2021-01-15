@@ -25,7 +25,7 @@ const IconNav = ({ iconName, position, onPress }) => {
 
   return (
     <Pressable style={getStyles} onPress={onPress}>
-      <Ionicons name={iconName} size={28} color={CLR_MAIN} />
+      <Ionicons name={iconName} size={26} color={CLR_MAIN} />
     </Pressable>
   );
 };

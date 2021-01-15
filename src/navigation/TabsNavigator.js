@@ -4,24 +4,25 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { IconTab } from '../components/NavigateComponents';
 import MainStack from './Stacks/MainStack';
 import BookedStack from './Stacks/BookedStack';
+import { CLR_GREY_BLUE, CLR_MAIN } from '../constants/colors';
 
 const Tabs = Platform.OS === 'ios' ? createBottomTabNavigator() : createMaterialBottomTabNavigator();
 
 const barStyles = { backgroundColor: 'orange' };
 const tabBarStyles = {
-  activeTintColor: 'orange',
-  inactiveTintColor: 'blue',
+  activeTintColor: CLR_MAIN,
+  inactiveTintColor: CLR_GREY_BLUE,
   labelStyle: { fontSize: 13 },
 };
 
 const mainStackOptions = {
   title: 'Заметки',
-  tabBarIcon: info => <IconTab iconName="star" color={info?.color} />,
+  tabBarIcon: info => <IconTab iconName="book-outline" color={info?.color} />,
 };
 
 const bookedStackOptions = {
   title: 'Закладки',
-  tabBarIcon: info => <IconTab iconName="star" color={info?.color} />,
+  tabBarIcon: info => <IconTab iconName="bookmarks-outline" color={info?.color} />,
 };
 
 const TabsNavigator = () => (

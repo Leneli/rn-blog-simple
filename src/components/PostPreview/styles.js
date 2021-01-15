@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { CLR_WHITE, CLR_FONT, CLR_MAIN, CLR_WARNING } from '../../constants/colors';
+import { CLR_WHITE, CLR_FONT, CLR_WARNING } from '../../constants/colors';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -34,8 +34,7 @@ const styles = StyleSheet.create({
   },
 
   nameText: {
-    fontSize: 24,
-    color: CLR_FONT,
+    fontSize: 20,
   },
 
   dateText: {
@@ -48,8 +47,8 @@ const styles = StyleSheet.create({
   },
 
   descText: {
-    fontSize: 18,
-    color: CLR_FONT,
+    fontSize: 14,
+    lineHeight: 18,
   },
 
   booked: {

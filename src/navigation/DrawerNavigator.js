@@ -1,18 +1,22 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import AboutScreen from '../screens/AboutScreen';
-import CreateScreen from '../screens/CreateScreen';
+import AboutStack from './Stacks/AboutStack';
+import CreateStack from './Stacks/CreateStack';
 import TabsNavigator from './TabsNavigator';
+import { CLR_GREY, CLR_MAIN } from '../constants/colors';
 
-const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
+const drawerStyles = {
+  activeBackgroundColor: CLR_GREY,
+  activeTintColor: CLR_MAIN,
+};
+
 const DrawerNavigator = () => (
-  <Drawer.Navigator initialRouteName="Home">
+  <Drawer.Navigator initialRouteName="Home" drawerContentOptions={drawerStyles}>
     <Drawer.Screen name="Home" component={TabsNavigator} options={{ title: 'Главная' }} />
-    <Stack.Screen name="About" component={AboutScreen} />
-    <Stack.Screen name="Create" component={CreateScreen} options={{ title: 'Новая заметка' }} />
+    <Drawer.Screen name="About" component={AboutStack} options={{ title: 'О приложении' }} />
+    <Drawer.Screen name="Create" component={CreateStack} options={{ title: 'Новая заметка' }} />
   </Drawer.Navigator>
 );
 
