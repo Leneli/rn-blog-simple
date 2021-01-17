@@ -5,7 +5,9 @@ const mainOptions = ({ navigation, title, hasRightButton = true }) => ({
   title,
   headerLeft: () => <IconNav iconName="ios-menu" position="left" onPress={() => navigation.openDrawer()} />,
   headerRight: () =>
-    hasRightButton ? <IconNav iconName="ios-camera" position="right" onPress={() => {}} /> : null,
+    hasRightButton ? (
+      <IconNav iconName="ios-camera" position="right" onPress={() => navigation.navigate('Create')} />
+    ) : null,
 });
 
 export default mainOptions;

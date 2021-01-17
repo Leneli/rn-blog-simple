@@ -9,13 +9,11 @@ const propTypes = {
   title: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   image: PropTypes.string,
-  isBooked: PropTypes.bool,
   onDelete: PropTypes.func,
 };
 
 const defaultProps = {
   image: '',
-  isBooked: false,
   onDelete: () => {},
 };
 
@@ -39,7 +37,7 @@ const PostFull = ({ title, text, image, onDelete }) => {
       </View>
 
       <View style={styles.buttonsBox}>
-        <Button title="Delete" color={CLR_WARNING} onPress={onDelete} />
+        <Button title="Удалить" color={CLR_WARNING} onPress={onDelete} />
       </View>
     </ScrollView>
   );

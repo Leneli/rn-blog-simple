@@ -1,16 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Alert } from 'react-native';
+import React, { useEffect, useCallback } from 'react';
+import { Alert } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { PostFull } from '../components/PostFull';
-import { DATA } from '../data';
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+import { removePost, toggleBookmark } from '../store/actions/post';
 
 const propTypes = {
   navigation: PropTypes.object.isRequired,
@@ -18,32 +11,13 @@ const propTypes = {
 };
 
 export const PostScreen = ({ navigation, route }) => {
-  const [starIcon, setStarIcon] = useState(route?.params?.booked ? 'star' : 'star-outline');
+  const allPosts = useSelector(state => state?.post?.allPosts) || [];
   const postId = route?.params?.id;
-  const postData = DATA.find(post => post.id === postId) || {};
-  const { title, text, img, booked } = postData;
-
-  const handleRightNavIconPress = () => {
-    console.log('>>> starIcon (0)', starIcon);
-    setStarIcon(starIcon === 'star' ? 'star-outline' : 'star');
-    console.log('>>> Star press!');
-    console.log('>>> starIcon (1)', starIcon);
-  };
-
-  useEffect(() => {
-    console.log('>>> starIcon (2)', starIcon);
-    navigation.setParams({
-      rightNavIconName: starIcon,
-      onRightNavIconPress: handleRightNavIconPress,
-    });
-  }, []);
-
-  useEffect(() => {
-    console.log('>>> starIcon (3)', starIcon);
-    navigation.setParams({
-      rightNavIconName: starIcon,
-    });
-  }, [starIcon]);
+  const postData = allPosts.find(post => post.id === postId) || {};
+  const { title, text, img } = postData;
+  const isBooked = useSelector(state => state?.post?.bookedPosts.some(post => post.id === postId));
+  const dispatch = useDispatch();
+  const handleToggleBookmark = useCallback(() => dispatch(toggleBookmark(postId)), [dispatch, postId]);
 
   const handleDelete = () => {
     Alert.alert(
@@ -56,18 +30,32 @@ export const PostScreen = ({ navigation, route }) => {
         {
           text: 'Удалить',
           style: 'destructive',
-          onPress: () => {},
+          onPress: () => {
+            dispatch(removePost(postId));
+            navigation.goBack();
+          },
         },
       ],
     );
   };
+
+  useEffect(() => {
+    navigation.setParams({
+      rightNavIconName: isBooked ? 'star' : 'star-outline',
+    });
+  }, [isBooked]);
+
+  useEffect(() => {
+    navigation.setParams({
+      onRightNavIconPress: handleToggleBookmark,
+    });
+  }, [handleToggleBookmark]);
 
   return (
     <PostFull
       title={title}
       text={text}
       image={img}
-      isBooked={booked}
       onDelete={handleDelete}
     />
   );

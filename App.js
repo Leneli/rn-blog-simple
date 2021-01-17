@@ -1,8 +1,10 @@
 import { AppLoading } from 'expo';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
+import { Provider } from 'react-redux';
 import AppRouter from './src/navigation/AppNavigation';
 import { bootstrap } from './src/bootstrap';
+import store from './src/store';
 
 export default function App() {
   const [loaded, setLoaded] = useState(false);
@@ -12,9 +14,9 @@ export default function App() {
   if (!loaded) return <AppLoading startAsync={bootstrap} onFinish={onReady} onError={onError} />;
 
   return (
-    <>
-      <StatusBar style="light" />
+    <Provider store={store}>
+      <StatusBar style="dark" />
       <AppRouter />
-    </>
+    </Provider>
   );
 }
