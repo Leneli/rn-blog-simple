@@ -6,13 +6,15 @@ import { styles } from './styles';
 import { CLR_WARNING } from '../../constants/colors';
 
 const propTypes = {
-  title: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  text: PropTypes.string,
   image: PropTypes.string,
   onDelete: PropTypes.func,
 };
 
 const defaultProps = {
+  title: '',
+  text: '',
   image: '',
   onDelete: () => {},
 };

@@ -8,7 +8,7 @@ const postOptions = ({ route }) => ({
     <IconNav
       position="right"
       iconName={route?.params?.rightNavIconName || 'star-outline'}
-      onPress={route?.params?.onRightNavIconPress}
+      onPress={route.params.onRightNavIconPress}
     />
   ),
 });

@@ -7,7 +7,11 @@ import { CLR_MAIN } from '../../constants/colors';
 const propTypes = {
   iconName: PropTypes.string.isRequired,
   position: PropTypes.string.isRequired,
-  onPress: PropTypes.func.isRequired,
+  onPress: PropTypes.func,
+};
+
+const defaultProps = {
+  onPress: () => {},
 };
 
 const IconNav = ({ iconName, position, onPress }) => {
@@ -31,5 +35,6 @@ const IconNav = ({ iconName, position, onPress }) => {
 };
 
 IconNav.propTypes = propTypes;
+IconNav.defaultProps = defaultProps;
 
 export default IconNav;
