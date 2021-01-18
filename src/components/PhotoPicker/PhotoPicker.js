@@ -5,9 +5,8 @@ import { StyleSheet, View, Image, Button, Alert } from 'react-native';
 import { CLR_GREY_BLUE } from '../../constants/colors';
 
 const PHOTO_CONFIG = {
-  mediaTypes: ImagePicker.MediaTypeOptions.All,
+  mediaTypes: ImagePicker.MediaTypeOptions.Images,
   allowsEditing: true,
-  aspect: [4, 3],
   quality: 0.75,
 };
 

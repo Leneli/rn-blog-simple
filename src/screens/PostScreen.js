@@ -17,7 +17,7 @@ export const PostScreen = ({ navigation, route }) => {
   const { title, text, img } = postData;
   const isBooked = useSelector(state => state?.post?.bookedPosts.some(post => post.id === postId));
   const dispatch = useDispatch();
-  const handleToggleBookmark = useCallback(() => dispatch(toggleBookmark(postId)), [dispatch, postId]);
+  const handleToggleBookmark = useCallback(() => dispatch(toggleBookmark(postData)), [dispatch, postData]);
 
   const handleDelete = () => {
     Alert.alert(

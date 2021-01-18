@@ -1,4 +1,4 @@
-import { CREATE_POST, LOAD_POSTS, REMOVE_POST, TOGGLE_BOOKMARK } from "../types";
+import { CREATE_POST, LOAD_POSTS, REMOVE_POST, TOGGLE_BOOKMARK } from '../types';
 
 const initialState = {
   allPosts: [],

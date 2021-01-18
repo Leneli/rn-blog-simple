@@ -19,7 +19,9 @@ const PostPreview = ({ navigation, post }) => {
     navigation.navigate('Post', { title: `Пост от ${new Date(date).toLocaleDateString()}`, id, booked });
   };
 
-  const onLongPress = () => dispatch(toggleBookmark(id));
+  const onLongPress = () => {
+    dispatch(toggleBookmark(post));
+  }
 
   return (
     <View style={styles.wrapper}>
@@ -27,7 +29,7 @@ const PostPreview = ({ navigation, post }) => {
         onPress={onPress}
         onLongPress={onLongPress}
         style={styles.container}>
-        {booked && <View style={styles.booked}></View>}
+        {!!booked && <View style={styles.booked}></View>}
         {!!img && <Image source={{ uri: img }} style={styles.image} />}
         <View style={styles.header}>
           <TextComponent fontFamily="Montserrat-Bold" style={styles.nameText}>{title}</TextComponent>
