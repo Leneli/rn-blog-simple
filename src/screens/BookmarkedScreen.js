@@ -13,7 +13,7 @@ const BookmarkedScreen = ({ navigation }) => {
   const bookedPosts = useSelector(state => state?.post?.bookedPosts);
 
   if (!bookedPosts) return <ScreenPreloader />;
-  if (!bookedPosts.length) return <ScreenEmpty message="У вас пока нет закладок" />;
+  if (!bookedPosts.length) return <ScreenEmpty message="У вас пока нет закладок :(" />;
   return <PostsList navigation={navigation} data={bookedPosts} />;
 };
 

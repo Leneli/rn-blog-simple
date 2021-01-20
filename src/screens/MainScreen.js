@@ -19,7 +19,7 @@ const MainScreen = ({ navigation }) => {
   }, [dispatch]);
 
   if (!allPosts) return <ScreenPreloader />;
-  if (!allPosts.length) return <ScreenEmpty message="У вас пока нет ни одной заметки" />;
+  if (!allPosts.length) return <ScreenEmpty message="У вас пока нет ни одной заметки :(" />;
   return <PostsList navigation={navigation} data={allPosts} />;
 };
 
