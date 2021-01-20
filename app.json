@@ -20,7 +20,7 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.liafell.self_blog_rn_app",
+      "bundleIdentifier": "com.liafell.self-blog-rn-app",
       "buildNumber": "1.0.0",
       "supportsTablet": true
     },
